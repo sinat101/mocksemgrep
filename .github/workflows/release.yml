@@ -8,7 +8,6 @@ jobs:
   release-job:
     name: Releasing new version of semgrep 
     runs-on: ubuntu-latest
-
     steps:
       - name: Run release commands
         run: |
