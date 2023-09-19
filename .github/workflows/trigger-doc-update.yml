@@ -1,4 +1,4 @@
-name: Trigger Doc Update
+name: Doc Update
 
 # Only trigger when the release workflow has succeeded
 on:
