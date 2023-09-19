@@ -1,4 +1,5 @@
-name: Doc Update
+# Name of this GitHub Actions workflow.
+name: Trigger Doc Update
 
 # Only trigger when the release workflow has succeeded
 on:
