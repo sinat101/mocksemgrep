@@ -1,0 +1,15 @@
+# Name of this GitHub Actions workflow.
+name: release
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  release-job:
+    name: Releasing new version of semgrep 
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run release commands
+        run: |
+          echo "New Semgrep version released!"
