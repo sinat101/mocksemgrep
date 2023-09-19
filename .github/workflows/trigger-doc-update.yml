@@ -1,0 +1,22 @@
+name: Trigger Doc Update
+
+# Only trigger when the release workflow has succeeded
+on:
+  workflow_run:
+    workflows: ["release"]
+    types:
+      - completed
+
+jobs:
+  trigger-doc-update:
+    name: Trigger Doc Update
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger doc update workflow
+      - run: |
+            curl --location \
+            --request POST \
+            --header "Accept: application/vnd.github+json" \
+            --header "Authorization: Bearer ${{ secrets.DISPATCH_TOKEN }}" \
+            https://api.github.com/repos/OWNER/REPO/dispatches \
+            --data '{"event_type":"new_release"}'
