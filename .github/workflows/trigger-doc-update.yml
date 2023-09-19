@@ -5,8 +5,7 @@ name: Trigger Doc Update
 on:
   workflow_run:
     workflows: ["release"]
-    types:
-      - completed
+    types: [completed]
 
 jobs:
   trigger-doc-update:
