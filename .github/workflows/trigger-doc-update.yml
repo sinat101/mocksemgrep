@@ -2,13 +2,10 @@
 name: Trigger Doc Update
 
 # Only trigger when the release workflow has succeeded
-# on:
-#   workflow_run:
-#     workflows: ["release"]
-#     types: [completed]
-
 on:
-  workflow_dispatch: {}
+  workflow_run:
+    workflows: ["release"]
+    types: [completed]
 
 jobs:
   trigger-doc-update:
@@ -16,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger doc update workflow
-      - run: |
+        run: |
             curl --location \
             --request POST \
             --header "Accept: application/vnd.github+json" \
