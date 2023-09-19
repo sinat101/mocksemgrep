@@ -2,10 +2,13 @@
 name: Trigger Doc Update
 
 # Only trigger when the release workflow has succeeded
+# on:
+#   workflow_run:
+#     workflows: ["release"]
+#     types: [completed]
+
 on:
-  workflow_run:
-    workflows: ["release"]
-    types: [completed]
+  workflow_dispatch: {}
 
 jobs:
   trigger-doc-update:
