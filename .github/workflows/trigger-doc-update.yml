@@ -14,17 +14,15 @@ jobs:
     steps:
       - name: Generate a token
         id: generate_token
-        uses: peter-murray/workflow-application-token-action@v2
+        uses: actions/create-github-app-token@v1
         with:
-          application_id: ${{ secrets.SEMGREP_DOCS_BOT_APP_ID }}
-          application_private_key: ${{ secrets.SEMGREP_DOCS_BOT_PRIVATE_KEY }}
+          app_id: ${{ secrets.SEMGREP_DOCS_BOT_APP_ID }}
+          private_key: ${{ secrets.SEMGREP_DOCS_BOT_PRIVATE_KEY }}
       - name: Trigger doc update workflow
-        env:
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
           curl --location \
           --request POST \
           --header "Accept: application/vnd.github+json" \
-          --header "Authorization: Bearer $GITHUB_TOKEN" \
+          --header "Authorization: Bearer ${{ steps.generate_token.outputs.token }}" \
           https://api.github.com/repos/sinat101/mockdocs/dispatches \
           --data '{"event_type":"new_release"}'
