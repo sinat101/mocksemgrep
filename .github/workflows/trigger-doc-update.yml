@@ -22,7 +22,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
-          gh api repos/sinat101/mockdocs/dispatches -f event_type:new_release --verbose
+          gh api repos/sinat101/mockdocs/dispatches -f event_type=new_release --verbose
 
         # run: |
         #   curl --location \
