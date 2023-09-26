@@ -12,24 +12,24 @@ jobs:
     name: Trigger Doc Update
     runs-on: ubuntu-latest
     steps:
+      - name: Generate a token
+        id: generate_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app_id: ${{ secrets.SEMGREP_DOCS_BOT_APP_ID }}
+          private_key: ${{ secrets.SEMGREP_DOCS_BOT_PRIVATE_KEY }}
       - name: Trigger doc update workflow
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
-          curl --location \
-          --request POST \
-          --header "Accept: application/vnd.github+json" \
-          --header "Authorization: Bearer ${{ secrets.DOCS_DISPATCH }}" \
-          https://api.github.com/repos/sinat101/mockdocs/dispatches \
-          --data '{"event_type":"new_release"}'
-      # - name: Generate a token
-      #   id: generate_token
-      #   uses: actions/create-github-app-token@v1
-      #   with:
-      #     app_id: ${{ secrets.SEMGREP_DOCS_BOT_APP_ID }}
-      #     private_key: ${{ secrets.SEMGREP_DOCS_BOT_PRIVATE_KEY }}
+          gh api repos/sinat101/mockdocs/dispatches -f event_type=new_release --verbose
+
+
       # - name: Trigger doc update workflow
-      #   env:
-      #     GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
       #   run: |
-      #     gh api repos/sinat101/mockdocs/dispatches -f event_type=new_release --verbose
-
-
+      #     curl --location \
+      #     --request POST \
+      #     --header "Accept: application/vnd.github+json" \
+      #     --header "Authorization: Bearer ${{ secrets.DOCS_DISPATCH }}" \
+      #     https://api.github.com/repos/sinat101/mockdocs/dispatches \
+      #     --data '{"event_type":"new_release"}'
