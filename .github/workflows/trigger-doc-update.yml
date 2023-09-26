@@ -7,8 +7,6 @@ on:
     workflows: ["release"]
     types: [completed]
 
-permissions: write-all
-
 jobs:
   trigger-doc-update:
     name: Trigger Doc Update
