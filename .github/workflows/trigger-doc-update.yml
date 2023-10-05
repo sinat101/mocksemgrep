@@ -18,6 +18,7 @@ jobs:
         with:
           app_id: ${{ secrets.SEMGREP_DOCS_BOT_APP_ID }}
           private_key: ${{ secrets.SEMGREP_DOCS_BOT_PRIVATE_KEY }}
+          repositories: "mockdocs"
       - name: Trigger doc update workflow
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
