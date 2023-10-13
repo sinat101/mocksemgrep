@@ -1,0 +1,18 @@
+# note: all of these values are bogus; the broker will start up but not actually work
+outbound:
+  listenPort: 8080
+  relay:
+    # Relay GitHub PR comment events back to yahoo.semgrep.dev
+    webhook:
+      destinationUrl: https://some.random.site.com/webhook
+      # Filter out any comments that do not start with "/semgrep"
+      jsonPath: "$.comment.body"
+      hasPrefix:
+        - "/semgrep"
+      headerEquals:
+        X-GitHub-Event: pull_request_review_comment
+      # Additionally, send non-PR-comment-related webhook events to Semgrep
+      additionalConfigs:
+        - destinationUrl: https://some.random.site.com/webhook
+          headerNotEquals:
+            X-GitHub-Event: pull_request_review_comment
